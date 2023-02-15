@@ -1,17 +1,17 @@
 #include<stdio.h>
 #include<malloc.h>
-#include<windows.h>
+//#include<windows.h>
 
 int cp=0;
 int b=0;
 int S=0;
 
 
-void gotoxy(short x, short y)
+/*void gotoxy(short x, short y)
 {
 	COORD pos ={x,y};
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
+}*/
 
 typedef struct noeud
 {
@@ -114,16 +114,16 @@ void inorder(noeud * racine)
 	}
 }
 
-/* à n ' a p p e l e r que s u r de s a r b r e s != NULL */
+/* à n ' a p p e l e r que s u r de s a r b r e s != NULL
 int verifie_rec(noeud *racine , int *min , int *max) {
 int i ;
 *min=*max=racine->info ;
 if(racine->sag !=NULL)
-/* on u t i l i s e l ' é v a l u a t i o n p a r e s s e u s e du | | */
+ on u t i l i s e l ' é v a l u a t i o n p a r e s s e u s e du | | 
 if ( !verifie_rec(&(racine->sag),&i,max) || !(racine->info>*max))
 return 0 ;
 if (racine->sad!=NULL)
-/* on u t i l i s e l ' é v a l u a t i o n p a r e s s e u s e du | | */
+ on u t i l i s e l ' é v a l u a t i o n p a r e s s e u s e du | | 
 if (!verifie_rec( &(racine->sad),min,&i) || !(racine->info<=*min ))
 return 0 ;
 return 1 ;
@@ -131,7 +131,7 @@ return 1 ;
 int verifie (racine) {
 int min , max ;
 return ((racine==NULL) ?1:verifie_rec(&racine,&min,&max )) ;
-}
+}*/
 
 
 void nbrn(noeud * racine)
@@ -176,7 +176,7 @@ void find(noeud * racine,int i)
 }
 
 
-void arbreForme(noeud * racine, short * a, short b)
+/*void arbreForme(noeud * racine, short * a, short b)
 {
 	if(racine!=NULL)
 	{
@@ -186,7 +186,7 @@ void arbreForme(noeud * racine, short * a, short b)
 		*a=(*a)+5;
 		arbreForme(racine->sad,a,b+5);	
 	}
-}
+}*/
 
 void det(noeud * *racine)
 {	
@@ -319,20 +319,23 @@ int main()
 	creerNoeud(&racine, 55);
 	creerNoeud(&racine, 9);
 	
-//	supprimer(&racine, 30);
+//	
 	inorder(racine);
 	printf("\n\n");
-	arbreForme(racine,&x,y);
+	//arbreForme(racine,&x,y);
 	printf("%d",S);
 //	ParcoursHoriz(file,racine);
-	
+	printf("\n\n");
+	supprimer(&racine, 20);
+	printf("\n\n");
+	inorder(racine);
 //	printf("\n\nLe predecesseur est : %d",(predecesseur(racine->sag))->info);
 //	printf("\n\nLe successeur est : %d",(successeur(racine->sad))->info);
 	
 	
 //	getch();
 //	system("cls");
-	x=5,y=2;
+//	x=5,y=2;
 //	arbreForme(racine,&x,y);
 /*	nbrn(racine);
 	printf("\n%d",cp);

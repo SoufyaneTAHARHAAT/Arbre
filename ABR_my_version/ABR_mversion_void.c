@@ -59,9 +59,45 @@ Node * predecesseur(Node * racine)
     }
 }
 
-void node_delete(Node *racine, int x)
+void node_delete(Node **racine, int x)
 {
+    Node *p, *k;
 
+    if(x == (*racine)->v)
+    {
+        if((*racine)->fg == NULL && (*racine)->fd ==NULL)
+        {
+            p=(*racine);
+            (*racine)=NULL;
+            free(p);
+        }
+        else
+        {
+            if((*racine)->fg == NULL && (*racine)->fd !=NULL)
+                (*racine) = (*racine)->fd;
+            else
+            {
+                if((*racine)->fg != NULL && (*racine)->fd ==NULL)
+                    (*racine) = (*racine)->fg;
+                else
+                {
+                    if((*racine)->fg != NULL && (*racine)->fd !=NULL)
+                    {
+                        k=predecesseur((*racine)->fg);
+                        (*racine)->v = k->v ;
+                        node_delete(&(*racine)->fg, k->v);
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        if(x < (*racine)->v)
+            node_delete(&((*racine)->fg), x);
+        else
+            node_delete(&((*racine)->fd), x);
+    }
 }
 
 void print_tree(Node * racine, int h)
@@ -106,8 +142,12 @@ int main()
     node_insert(&racine, 5);
     node_insert(&racine, 1);
     print_tree(racine, 0);
-    printf("\n%d  %d", racine->fg->fg->v, racine->fg->fg->counter);
- //   print_tree(racine);
- printf("\nla hauteur est %d ", hauteur(racine));
+ //   printf("\n%d  %d", racine->fg->fg->v, racine->fg->fg->counter);
+   // print_tree(racine);
+ //printf("\nla hauteur est %d ", hauteur(racine));
+  node_delete(&racine, 8);
+  printf("\n");
+  //print_tree(racine);
+  print_tree(racine, 0);
 }
 
