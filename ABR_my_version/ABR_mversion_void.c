@@ -136,9 +136,9 @@ int main()
     node_insert(&racine, 7);
     node_insert(&racine, 9);
     node_insert(&racine, 11);
-    node_insert(&racine, 2);
+   /*  node_insert(&racine, 2);
     node_insert(&racine, 12);
-    node_insert(&racine, 3);
+    node_insert(&racine, 3); */
     node_insert(&racine, 5);
     node_insert(&racine, 1);
     print_tree(racine, 0);
@@ -146,6 +146,7 @@ int main()
    // print_tree(racine);
  //printf("\nla hauteur est %d ", hauteur(racine));
   node_delete(&racine, 8);
+  printf("\n");
   printf("\n");
   //print_tree(racine);
   print_tree(racine, 0);
