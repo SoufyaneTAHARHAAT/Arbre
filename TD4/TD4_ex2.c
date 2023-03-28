@@ -5,36 +5,55 @@
 
 typedef struct node
 {
-    int v;
-    int counter;
+    char c;
     struct node * fg;
     struct node * fd;
 }Node;
 
-Node * node_insert(Node *racine, int x)
+//char * a = "++2*34*51";
+char * a; // tableau de caracteres
+int i;
+
+Node * parse()
+{
+    char t = a[i++];
+    /* creer un noeud pour t */
+
+    Node * p = (Node *)malloc(sizeof(Node));
+    p->c = t;
+    p->fg = NULL;
+    p->fd = NULL;
+
+    /* tester si t est un operateur */
+    if(t == '+' || t == '*')
+    {
+        p->fg = parse();
+        p->fd = parse();
+        return p;
+    }
+}
+
+/* Node * node_insert(Node *racine, char x)
 {   
     if(racine == NULL)
     {
         racine=(Node*)malloc(sizeof(Node));
-        racine->v=x;
-        racine->counter=1;
-        racine->fg=NULL;
-        racine->fd=NULL;
+        racine->c = x;
+        racine->fg = NULL;
+        racine->fd = NULL;
     }
     else
     {
-        if(x< racine->v)
+        if(x< racine->c)
            racine->fg= node_insert(racine->fg , x);
         else
         {
-            if(x> racine->v)
+            if(x >= racine->c)
             racine->fd= node_insert(racine->fd , x);
-            else
-            racine->counter++;
         }
         
     }return racine;
-}
+} */
 
 void print_tree(Node * racine, int h)
 {
@@ -46,7 +65,7 @@ void print_tree(Node * racine, int h)
         {
             printf("   ");
         }
-        printf("%d\n", racine->v);
+        printf("%c\n", racine->c);
         print_tree(racine->fd, h+1);
     }
 }
@@ -61,24 +80,14 @@ void print_tree(Node * racine, int h)
     }
 } */
 
-int main()
+int main(int argc, char * argv[])
 {
-    Node * racine=NULL;
+    Node * racine = NULL;
 
-    racine= node_insert(racine, 8);
-   racine= node_insert(racine, 6);
-   racine= node_insert(racine, 1);
-   racine= node_insert(racine, 0);
-   racine= node_insert(racine, 7);
-   racine= node_insert(racine, 9);
-   racine= node_insert(racine, 11);
-   racine= node_insert(racine, 2);
-   racine= node_insert(racine, 12);
-   racine= node_insert(racine, 3);
-   racine= node_insert(racine, 5);
-    racine= node_insert(racine, 1);
+a = argv[1];
+/* a = ++a*bc*de */
+i = 0;
+racine = parse();
    print_tree(racine, 0);
-    printf("\n%d  %d", racine->v, racine->counter);
- //   print_tree(racine);
 }
 
