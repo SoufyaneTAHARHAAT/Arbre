@@ -10,28 +10,33 @@ typedef struct node
     struct node * fd;
 }Node;
 
-//char * a = "++2*34*51";
 char * a; // tableau de caracteres
 int i;
 
-Node * parse()
+int eval() //evaluer une expression prefixe avec seulement + et *
 {
-    char t = a[i++];
-    /* creer un noeud pour t */
-
-    Node * p = (Node *)malloc(sizeof(Node));
-    p->c = t;
-    p->fg = NULL;
-    p->fd = NULL;
-
-    /* tester si t est un operateur */
-    if(t == '+' || t == '*')
+    int x = 0;
+    if (a[i] == '#')
     {
-        p->fg = parse();
-        p->fd = parse();
-        return p;
+        i++; //ignorer les espaces
     }
+    if (a[i] == '+')
+    {
+        i++;
+        return eval() + eval();
+    }
+    if (a[i] == '*')
+    {
+        i++;
+        return eval() * eval();
+    }
+    while (a[i] <= '9' && a[i] >= '0')
+    {
+        x = 10 * x + (a[i++] - '0');
+       
+    } return x;
 }
+
 
 void print_tree(Node * racine, int h)
 {
@@ -52,11 +57,12 @@ void print_tree(Node * racine, int h)
 int main(int argc, char * argv[])
 {
     Node * racine = NULL;
-
+    // a = * + 705 * * 45 67 + 8 9 50
     a = argv[1];
-    /* a = ++a*bc*de */
     i = 0;
-    racine = parse();
-   print_tree(racine, 0);
+//    racine = parse();
+//    print_tree(racine, 0);
+    int exp = eval();
+    printf("\nresultat : %d\n", exp);
 }
 
